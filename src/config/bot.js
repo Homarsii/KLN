@@ -24,7 +24,7 @@ export const botConfig = {
     activities: [
       {
         name: "KLN ON TOP", // required by Discord API, not shown in the client
-        state: "stalking",     // this is what people actually see
+        state: "Raiding",     // this is what people actually see
         type: 3,               // Custom
       },
     ],
