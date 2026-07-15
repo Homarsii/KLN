@@ -24,7 +24,7 @@ export const botConfig = {
     activities: [
       {
         name: "+150 free commands", // required by Discord API, not shown in the client
-        state: "Support server : https://discord.gg/axtgwSuWGu",     // this is what people actually see
+        state: "Tools, Moderation, Utility, Verification, Ticket, Communoty, Bithday, Economy, Core, Welcome and more",     // this is what people actually see
         type: 3,               // Custom
       },
     ],
