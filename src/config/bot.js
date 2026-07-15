@@ -23,9 +23,9 @@ export const botConfig = {
     // 5 = Competing
     activities: [
       {
-        name: "Main activities : Raiding, Nuke, Scripting", // required by Discord API, not shown in the client
-        state: "Join kln now",     // this is what people actually see
-        type: 5,               // Custom
+        name: "+150 free commands", // required by Discord API, not shown in the client
+        state: "Support server : https://discord.gg/axtgwSuWGu",     // this is what people actually see
+        type: 3,               // Custom
       },
     ],
   },
