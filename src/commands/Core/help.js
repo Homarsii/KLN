@@ -101,7 +101,7 @@ export async function createInitialHelpMenu(client) {
             },
             {
                 name: '\u200B',
-                value: `-# ${botName} is [open source]()`,
+                value: `-# ${botName} On Top !`,
                 inline: false,
             },
         ],
