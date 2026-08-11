@@ -23,9 +23,9 @@ export const botConfig = {
     // 5 = Competing
     activities: [
       {
-        name: "+150 free commands", // required by Discord API, not shown in the client
+        name: "+150 commands", // required by Discord API, not shown in the client
         state: "Tools, Moderation, Utility, Verification, Ticket, Communoty, Bithday, Economy, Core, Welcome and more ",     // this is what people actually see
-        type: 3,               // Custom
+        type: 1,               // Custom
       },
     ],
   },
