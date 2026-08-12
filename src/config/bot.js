@@ -23,8 +23,8 @@ export const botConfig = {
     // 5 = Competing
     activities: [
       {
-        name: "+150 commands", // required by Discord API, not shown in the client
-        state: "Tools, Moderation, Utility, Verification, Ticket, Communoty, Bithday, Economy, Core, Welcome and more ",     // this is what people actually see
+        name: "official kln bot", // required by Discord API, not shown in the client
+        state: "https://discord.gg/kln",     // this is what people actually see
         type: 1,               // Custom
       },
     ],
