@@ -1,61 +1,61 @@
-// commands/webhook.js
-const {
+import {
   SlashCommandBuilder,
   PermissionFlagsBits,
-  WebhookClient,
-} = require("discord.js");
+  MessageFlags,
+} from "discord.js";
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName("webhook")
     .setDescription("Crée un webhook et envoie un message.")
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageWebhooks)
-    .addStringOption(option =>
+    .addStringOption((option) =>
       option
         .setName("message")
-        .setDescription("Message à envoyer via le webhook")
+        .setDescription("Le message à envoyer")
         .setRequired(true)
     ),
 
   async execute(interaction) {
-    const channel = interaction.channel;
-    const message = interaction.options.getString("message");
-
-    if (!channel?.isTextBased() || !channel.createWebhook) {
-      return interaction.reply({
-        content: "Cette commande doit être utilisée dans un salon textuel.",
-        ephemeral: true,
-      });
-    }
-
     try {
+      const channel = interaction.channel;
+      const message = interaction.options.getString("message");
+
+      if (!channel?.isTextBased() || typeof channel.createWebhook !== "function") {
+        return interaction.reply({
+          content: "Utilise cette commande dans un salon textuel.",
+          flags: MessageFlags.Ephemeral,
+        });
+      }
+
+      await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+
       const webhook = await channel.createWebhook({
-        name: "Mon Webhook",
+        name: "KLIN Webhook",
         reason: `Créé par ${interaction.user.tag}`,
       });
 
-      const client = new WebhookClient({ url: webhook.url });
-
-      await client.send({
+      await webhook.send({
         content: message,
-        username: "Bot Webhook",
+        username: "KLIN Webhook",
         avatarURL: interaction.client.user.displayAvatarURL(),
       });
 
-      await interaction.reply({
-        content: `Webhook créé et message envoyé dans ${channel}.`,
-        ephemeral: true,
-      });
-
-      // À éviter dans un serveur public : l’URL donne le droit d’envoyer des messages.
-      // console.log(webhook.url);
+      await interaction.editReply("Webhook créé et message envoyé.");
     } catch (error) {
-      console.error(error);
-      await interaction.reply({
+      console.error("Erreur commande webhook :", error);
+
+      const reply = {
         content:
-          "Impossible de créer le webhook. Vérifie que le bot possède la permission « Gérer les webhooks ». ",
-        ephemeral: true,
-      });
+          "Impossible de créer le webhook. Vérifie que le bot a la permission « Gérer les webhooks ». ",
+        flags: MessageFlags.Ephemeral,
+      };
+
+      if (interaction.deferred || interaction.replied) {
+        await interaction.editReply(reply);
+      } else {
+        await interaction.reply(reply);
+      }
     }
   },
 };
